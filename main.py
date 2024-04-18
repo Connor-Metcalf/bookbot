@@ -3,14 +3,20 @@
 def main():
     # create and populate variables
     book_path = "books/frankenstein.txt"
+
     text = getBookText(book_path)
     numWords = getWordCount(text)
+    repeatLetters = createDictOfRepeatChar(text)
+    repeatLetters = sortDictionary(repeatLetters)
     
-    # display variables
-    print(f"{numWords} words found in document.\n")
+    print("\nRunning analysis. . .\n\n")
 
+    print(f"Number of words in text: {numWords}\n\n")
+
+    print(f"Repeat characters in text: {repeatLetters}\n\n")
+    
     # end of program
-    printInAllLowerCase("END OF PROGRAM")
+    print("Analysis complete.\n\nEnd of program")
     
     
 # auxillary functions ----------------------------------------------------------
@@ -23,13 +29,21 @@ def getWordCount(text):
     wordArray = text.split()
     return len(wordArray)
 
-def printInAllLowerCase(text):
-    text = text.lower()
-    print(text)
-
-def printDictOfRepeatChar(text):
+def createDictOfRepeatChar(text):
     repeatLettersDict = {}
-    
+    text = text.lower()
+
+    for element in text:
+        repeatLettersDict[element] = repeatLettersDict.get(element, 0) + 1
+
+    return repeatLettersDict        
+
+def sortDictionary(dictionary):
+    keys = list( dictionary.keys() )
+    keys.sort()
+    dictionary = {index: dictionary[index] for index in keys}
+
+    return dictionary
         
 # run program ------------------------------------------------------------------
 main()    
